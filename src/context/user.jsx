@@ -27,7 +27,7 @@ function UserProvider(props) {
     try {
       const response = await axios.post(
         "https://final-project-server-dbar.onrender.com/api/v1/auth",
-        userObj,
+       userObj,
         {}
       );
       if(jwt_decode(response.data).role!=='admin'){

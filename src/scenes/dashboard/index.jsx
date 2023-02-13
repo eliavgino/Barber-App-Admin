@@ -248,13 +248,13 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={`${currentobj}$`}
+            title={`${currentobj.totalPrice}$`}
             subtitle="Expenses"
             progress={`0.${
-              (currentobj - currentobj2.totalPrice) / 100
+              (currentobj.totalPrice - currentobj2.totalPrice) / 100
             }`}
             increase={`+${
-              (currentobj - currentobj2.totalPrice) / 100
+              (currentobj.totalPrice - currentobj2.totalPrice) / 100
             }%`}
             icon={
               <MoneyOffIcon
@@ -398,13 +398,13 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle currentInc={(currentInc.totalAmount+currentobj.totalPrice/currentInc.totalAmount-currentobj.totalPrice)}  size="125" />
+            <ProgressCircle   size="125" />
             <Typography
               variant="h5"
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              {currentInc.totalAmount - currentobj}$
+              {currentInc.totalAmount - currentobj.totalPrice}$
             </Typography>
             <Typography>Includes extra misc expenditures and costs</Typography>
           </Box>

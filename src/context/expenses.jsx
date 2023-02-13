@@ -10,14 +10,7 @@ function ExpenseProvider(props) {
   const url = "https://final-project-server-dbar.onrender.com/api/v1/expense";
   const [monthlyEXP, setMonthlyEXP] = useState([]);
 
-  const getAllExpenses = async () => {
-    try {
-      const response = await axios.get(url + "/getAll");
-      setMonthlyEXP(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
   const addNewExpense = async (expenseObj) => {
     try {
       const expense = await axios.post(url, expenseObj);
@@ -50,7 +43,7 @@ function ExpenseProvider(props) {
   return (
     <div>
       <ExpenseContext.Provider
-        value={{ expenses, getAllExpOrInc, addNewExpense }}
+        value={{ expenses, getAllExpOrInc, addNewExpense,getAllExpenses ,monthlyEXP}}
       >
         {children}
       </ExpenseContext.Provider>

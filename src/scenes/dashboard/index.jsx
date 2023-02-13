@@ -12,10 +12,57 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import {ExpenseContext} from "../../context/expenses"
+import { useContext,useEffect,useState } from "react";
+import { IncomingContext } from './../../context/incoming';
 
 const Dashboard = () => {
+  const {getAllExpenses,monthlyEXP}=useContext(ExpenseContext)
+  const {getAllincomingHaircutsByMoth,incomingByMoth,}=useContext(IncomingContext)
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [currentobj,setCurrentobj]=useState(5)
+  const [currentInc,setCurrentInc]=useState(5)
+  
+  function findCurrentMonthObject(arr) {
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+  
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].month === currentMonth && arr[i].year === currentYear) {
+        setCurrentobj ({ totalPrice: arr[i].totalPrice, month: arr[i].month, year: arr[i].year });
+        
+      }
+    }
+    return null;
+  }
+  function findCurrentMonthInc(arr) {
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+  
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i]._id.month === currentMonth && arr[i]._id.year === currentYear) {
+        setCurrentInc ({ totalAmount: arr[i].totalAmount, month: arr[i]._id.month, year: arr[i]._id.year });
+
+      }
+    }
+    return null;
+  }
+
+  useEffect(() => {
+   getAllExpenses()  
+   getAllincomingHaircutsByMoth()
+  }, []);
+  useEffect(() => {
+    findCurrentMonthInc(incomingByMoth)
+   findCurrentMonthObject(monthlyEXP)
+   
+   
+    
+  }, [getAllExpenses]);
+  
 
   return (
     <Box m="20px">
@@ -93,8 +140,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
+            title={currentobj.totalPrice}
+            subtitle="Expenses"
             progress="0.30"
             increase="+5%"
             icon={
@@ -112,7 +159,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
+            title={currentInc.totalAmount}
             subtitle="Traffic Received"
             progress="0.80"
             increase="+43%"
@@ -224,7 +271,7 @@ const Dashboard = () => {
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+          Gross profit
           </Typography>
           <Box
             display="flex"
@@ -232,13 +279,14 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" />
+            <ProgressCircle currentInc={(currentInc.totalAmount+currentobj.totalPrice/currentInc.totalAmount-currentobj.totalPrice)}  size="125" />
             <Typography
               variant="h5"
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              $48,352 revenue generated
+              
+              {currentInc.totalAmount-currentobj.totalPrice}$
             </Typography>
             <Typography>Includes extra misc expenditures and costs</Typography>
           </Box>

@@ -6,7 +6,7 @@ export const IncomingContext = createContext();
 
 function IncomingProvider(props) {
   const { children } = props;
-  const [incomingByMoth, setincomingByMoth] = useState([]);
+  const [incomingByMoth, setIncomingByMoth] = useState([]);
   const [haircutsByMonthAndBarber, sethaircutsByMonthAndBarber] = useState([]);
   const [haircutsBydateAndHairCutsCount, setHaircutsBydateAndHairCutsCount] =
     useState([]);
@@ -16,7 +16,7 @@ function IncomingProvider(props) {
       const response = await axios.get(
         "http://localhost:4000/api/v1/haircut/getHairCutsDistintsAndAmouthSum"
       );
-      setincomingByMoth(response.data);
+      setIncomingByMoth(response.data);
     } catch (error) {
       console.error(error);
       return error;
@@ -27,7 +27,7 @@ function IncomingProvider(props) {
       const response = await axios.get(
         "http://localhost:4000/api/v1/haircut/getHairCutsDistints"
       );
-      console.log("j j j j j j j j j j j");
+     
       console.log(response.date);
       setHaircutsBydateAndHairCutsCount(response.data);
     } catch (error) {

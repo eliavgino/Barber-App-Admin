@@ -7,6 +7,7 @@ export const ExpenseContext = createContext();
 function ExpenseProvider(props) {
   const [expenses, setexpenses] = useState([]);
   const { children } = props;
+  const [monthlyEXP,setMonthlyEXP]=useState([])
   const url = "http://localhost:4000/api/v1/expense";
   const addNewExpense = async (expenseObj) => {
     try {
@@ -28,10 +29,19 @@ function ExpenseProvider(props) {
     }
   };
 
+  const getAllExpenses = async () => {
+    try {
+      const response = await axios.get(url+"/getAll");
+      setMonthlyEXP( response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <ExpenseContext.Provider
-        value={{ expenses, getAllExpOrInc, addNewExpense }}
+        value={{ expenses, getAllExpOrInc, addNewExpense ,getAllExpenses,monthlyEXP}}
       >
         {children}
       </ExpenseContext.Provider>

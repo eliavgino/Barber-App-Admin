@@ -56,13 +56,13 @@ const Calendar = () => {
           hairCut: title,
         });
         console.log(res.data);
-        calanderApi.addEvent({
-          id: res.data._id,
-          title: `yeesssssssssssssss`,
-          start: selected.startStr,
-          end: selected.endStr,
-          allDay: selected.allDay,
-        });
+        // calanderApi.addEvent({
+        //   id: res.data._id,
+        //   title: `yeesssssssssssssss`,
+        //   start: selected.startStr,
+        //   end: selected.endStr,
+        //   allDay: selected.allDay,
+        // });
         console.log("yess");
         setallHairCuts([...allHairCuts, res.data]);
         getUpcomingHairCuts();

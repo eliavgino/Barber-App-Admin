@@ -5,18 +5,15 @@ import React, { createContext, useState, useEffect } from "react";
 export const BarbersContext = createContext();
 
 function BarberProvider(props) {
-
   useEffect(() => {
-   if(localStorage.getItem('token'))
-    setCerruntBarberId(jwt_decode(localStorage.getItem('token'))._id)
-
-  }, [])
-  
+    if (localStorage.getItem("token"))
+      setCerruntBarberId(jwt_decode(localStorage.getItem("token"))._id);
+  }, []);
 
   const { children } = props;
   const url = "http://localhost:4000/api/v1/barber";
   const [barberId, setBarberId] = useState();
-  const [cerruntBarberId,setCerruntBarberId]=useState('');
+  const [cerruntBarberId, setCerruntBarberId] = useState("");
   const [barbers, setBarbers] = useState([]);
   const [barber, setBarber] = useState({
     profilePhoto: "",
@@ -26,7 +23,15 @@ function BarberProvider(props) {
   });
   const [errorMsg, setErrorMsg] = useState(null);
   const [userName, setUsername] = useState("");
-
+  const addNewBarber = async (barberObj) => {
+    try {
+      const response = await axios.post(url, barberObj, {});
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+      alert(error.response.data);
+    }
+  };
   const getAllBarbers = async () => {
     try {
       let response = await axios.get(url, {});
@@ -61,7 +66,8 @@ function BarberProvider(props) {
           setBarberId,
           barberId,
           cerruntBarberId,
-          setCerruntBarberId
+          setCerruntBarberId,
+          addNewBarber,
         }}
       >
         {children}

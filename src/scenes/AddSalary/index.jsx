@@ -4,6 +4,7 @@ import { ProductContext } from "../../context/product";
 import { ExpenseContext } from "./../../context/expenses";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
 const AddSalary = () => {
   const date = new Date();
   const month = date.getMonth();
@@ -92,7 +93,9 @@ const AddSalary = () => {
             </MenuItem>
           ))}
         </TextField>
-        <button type="submit">submit</button>
+        <Button type="submit"
+        color="secondary"
+        variant="contained" >submit</Button>
       </form>
     </div>
   );

@@ -1,46 +1,29 @@
 .add-user-form {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 5px;
-    text-align: left;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .add-user-form label {
-    font-weight: bold;
-    margin-top: 20px;
-    display: block;
-  }
-  
-  .add-user-form input,
-  .add-user-form button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid lightgray;
-  }
-  
-  .add-user-form input:focus,
-  .add-user-form button:focus {
-    outline: none;
-    border: 1px solid gray;
-  }
-  
-  .add-user-form button {
-    background-color: lightblue;
-    color: white;
-    cursor: pointer;
-    margin-top: 4rem;
-    transition: all 0.3s ease;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .add-user-form button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    background-color: rgb(13, 143, 243);
-  }
+  max-width: 100%;
+  margin: 50px auto;
+  padding: 20px;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  text-align: left;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-user-form label {
+  font-weight: bold;
+  margin-top: 20px;
+  display: block;
+}
+
+.add-user-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+
+.add-user-form input:focus {
+  outline: none;
+  border: 1px solid gray;
+}

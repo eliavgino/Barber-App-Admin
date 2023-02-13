@@ -1,9 +1,16 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
+import { useContext, useEffect, useState } from "react";
+import { HairCutsContext } from "../../context/hairCuts";
+import { UserContext } from "../../context/user";
+import { ExpenseContext } from "../../context/expenses";
+import { IncomingContext } from "../../context/incoming";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import MoneyOffIcon from "@mui/icons-material/MoneyOff";
+import PriceCheckIcon from "@mui/icons-material/PriceCheck";
+import SummarizeIcon from "@mui/icons-material/Summarize";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
@@ -12,13 +19,161 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import Invoices from "./../invoices/index";
 
 const Dashboard = () => {
+  const { getAllExpenses, monthlyEXP } = useContext(ExpenseContext);
+  const { getAllUsers, users } = useContext(UserContext);
+  const { getUpcomingHairCuts, allHairCuts } = useContext(HairCutsContext);
+  const {
+    getAllincomingHaircutsByMoth,
+    incomingByMoth,
+    getAllHairCutsByMoNTHAndCount,
+    haircutsBydateAndHairCutsCount,
+    count,
+    count2,
+  } = useContext(IncomingContext);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const month = new Date().getMonth() + 1;
+  const [currentobj, setCurrentobj] = useState(5);
+  const [currentobj2, setCurrentobj2] = useState({ totalPrice: 0 });
+  const [currentInc, setCurrentInc] = useState(5);
+  const [currentInc2, setCurrentInc2] = useState({ totalAmount: 0 });
 
+  function findlastMonthObject(arr) {
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    const month = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    for (let i = 0; i < arr.length; i++) {
+      if (
+        arr[i].month === month[currentMonth - 1] &&
+        arr[i].year === currentYear
+      ) {
+        setCurrentobj2({
+          totalPrice: arr[i].totalPrice,
+          month: arr[i].month,
+          year: arr[i].year,
+        });
+      }
+    }
+    return null;
+  }
+  function findCurrentMonthObject(arr) {
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    const month = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].month === month[currentMonth] && arr[i].year === currentYear) {
+        setCurrentobj({
+          totalPrice: arr[i].totalPrice,
+          month: arr[i].month,
+          year: arr[i].year,
+        });
+      }
+    }
+    return null;
+  }
+  function findCurrentMonthInc(arr) {
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+
+    for (let i = 0; i < arr.length; i++) {
+      if (
+        arr[i]._id.month === currentMonth &&
+        arr[i]._id.year === currentYear
+      ) {
+        setCurrentInc({
+          totalAmount: arr[i].totalAmount,
+          month: arr[i]._id.month,
+          year: arr[i]._id.year,
+        });
+      }
+    }
+    return null;
+  }
+  function findlastMonthInc(arr) {
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+
+    for (let i = 0; i < arr.length; i++) {
+      if (
+        arr[i]._id.month === currentMonth - 1 &&
+        arr[i]._id.year === currentYear
+      ) {
+        setCurrentInc2({
+          totalAmount: arr[i].totalAmount,
+          month: arr[i]._id.month,
+          year: arr[i]._id.year,
+        });
+      }
+    }
+    return null;
+  }
+  useEffect(() => {
+    getAllExpenses();
+    getAllincomingHaircutsByMoth();
+  }, []);
+  useEffect(() => {
+    findlastMonthObject(monthlyEXP);
+    findlastMonthInc(incomingByMoth);
+    findCurrentMonthInc(incomingByMoth);
+    findCurrentMonthObject(monthlyEXP);
+  }, [getAllExpenses]);
+
+  useEffect(() => {
+    getUpcomingHairCuts();
+    getAllUsers();
+    getAllHairCutsByMoNTHAndCount();
+  }, []);
   return (
     <Box m="20px">
+     
+   {   console.log("this is the current obj down")}
+      {console.log(currentobj)}
+      {console.log(currentobj2)}
+     
+      {console.log((currentobj2.totalPrice))}
+      {console.log((currentobj - currentobj2.totalPrice))}
+      {console.log(count)}
+      {console.log("dshb dsjb dsj dsbjds dsbds ")}
+      console.log({(count- count2) / 100})
+      {console.log(count2)}
+      {console.log(allHairCuts)}
+      
+
+      {console.log((count["count"] - count2["count"]) / 100)}
+
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
@@ -55,12 +210,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
+            title={`${users.length}`}
+            subtitle="Clients"
+            progress={`0.${users.length}`}
+            increase={`+${users.length}%`}
             icon={
-              <EmailIcon
+              <SupervisedUserCircleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -74,12 +229,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
+            title={count}
+            subtitle="Haircuts Amount"
+            progress={`0.${(count- count2) / 100}`}
+            increase={`+${(count- count2) / 100}%`}
             icon={
-              <PointOfSaleIcon
+              <SummarizeIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -93,12 +248,16 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
+            title={`${currentobj}$`}
+            subtitle="Expenses"
+            progress={`0.${
+              (currentobj - currentobj2.totalPrice) / 100
+            }`}
+            increase={`+${
+              (currentobj - currentobj2.totalPrice) / 100
+            }%`}
             icon={
-              <PersonAddIcon
+              <MoneyOffIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -112,12 +271,14 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
+            title={`${currentInc.totalAmount}$`}
+            subtitle="Inccoming"
+            progress={`0.${
+              (currentInc.totalPrice - currentInc.totalPrice) / 100
+            }`}
+            increase={`+${currentInc.totalAmount - currentInc2.totalAmount}%`}
             icon={
-              <TrafficIcon
+              <PriceCheckIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -143,14 +304,14 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
+                Barbers Haircuts
               </Typography>
               <Typography
                 variant="h3"
                 fontWeight="bold"
                 color={colors.greenAccent[500]}
               >
-                $59,342.32
+                Until Today:{allHairCuts.length}
               </Typography>
             </Box>
             <Box>
@@ -180,12 +341,12 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Last Haircuts
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {allHairCuts.map((val) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={`${val._id}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -198,19 +359,24 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  Client: {val.user["user_Name"]}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  Barber: {val.barber["barber_Name"]}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.grey[100]}>
+                {" "}
+                {val.date[8]}
+                {val.date[9]}-{val.date[5]}
+                {val.date[6]} / {val.hour}
+              </Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ${transaction.cost}
+                ${val.hairCut["product_price"]}
               </Box>
             </Box>
           ))}
@@ -238,7 +404,7 @@ const Dashboard = () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              $48,352 revenue generated
+              {currentInc.totalAmount - currentobj}$
             </Typography>
             <Typography>Includes extra misc expenditures and costs</Typography>
           </Box>
@@ -257,23 +423,6 @@ const Dashboard = () => {
           </Typography>
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
-          >
-            Geography Based Traffic
-          </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={true} />
           </Box>
         </Box>
       </Box>

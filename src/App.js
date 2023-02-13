@@ -4,14 +4,13 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
+import { ColorModeContext, useMode } from "./theme";
 import Invoices from "./scenes/invoices";
 import Contacts from "./scenes/users";
 import Bar from "./scenes/bar";
 import Form from "./scenes/AddProduct";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
-import FAQ from "./scenes/faq";
-import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Calendar from "./scenes/calendar/calendar";
 import AddExpenses from "./scenes/AddExpenses/index";
@@ -28,6 +27,8 @@ function App() {
   const {page,setPage}=useContext(PagenationContext);
 
   const {getbarberById}=useContext(BarbersContext);
+
+  const [theme, colorMode] = useMode();
  
   const [isSidebar, setIsSidebar] = useState(true);
 
@@ -46,6 +47,9 @@ function App() {
       {page==='log in'?
       <LogIn/>
       :
+      <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
@@ -62,12 +66,12 @@ function App() {
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
-              <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
             </Routes>
           </main>
         </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
 }
       </>  
   );

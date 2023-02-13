@@ -34,8 +34,8 @@ function BarberProvider(props) {
   };
   const getAllBarbers = async () => {
     try {
-      let response = await axios.get(url, {});
-      const barber = response.data;
+      let response = await axios.get(url+"/api/v1/barber", {});
+      let barber = response.data;
       //adding the barber into arry of barbers
       setBarbers(barber);
     } catch (error) {

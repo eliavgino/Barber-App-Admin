@@ -64,6 +64,7 @@ const Login = () => {
               </Typography>
               <form
                 onSubmit={async(e) => {
+                  e.preventDefault();
                   e.target.reset();
                   authUser(user);
                   const response= await authUser(user);

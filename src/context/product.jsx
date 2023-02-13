@@ -6,7 +6,7 @@ export const ProductContext = createContext();
 
 function ProductProvider(props) {
   const { children } = props;
-  const url = "http://localhost:4000/api/v1/product";
+  const url = "https://final-project-server-dbar.onrender.com/api/v1/product";
   const [products, setproducts] = useState([]);
   const [salaryProducts, setsalaryProducts] = useState([]);
 
@@ -25,7 +25,7 @@ function ProductProvider(props) {
     try {
       const product = (
         await axios.get(
-          "http://localhost:4000/api/v1/product/getAllProductsofsalary"
+          url+"/getAllProductsofsalary"
         )
       ).data;
 

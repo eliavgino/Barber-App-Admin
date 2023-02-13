@@ -12,7 +12,7 @@ function PagenationProvider(props) {
 
     const { children } = props;
 
-    const [page,setPage]=useState('home');
+    const [page,setPage]=useState('log in');
     const [userProfileDis,setUserProfileDis]=useState('none');
     const [mustLogDis,setMustLogIn]=useState('none');
     const [barCantDis,setBarCantDis]=useState('none');

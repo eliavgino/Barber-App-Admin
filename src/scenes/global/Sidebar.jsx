@@ -19,8 +19,14 @@ import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantity
 import PaidIcon from "@mui/icons-material/Paid";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { UserContext } from "../../context/user";
+import { BarbersContext } from "../../context/barbers";
+import { useContext } from "react";
+import { useEffect } from "react";
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
+  
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -39,6 +45,13 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
+
+  const {barber}=useContext(BarbersContext)
+
+  useEffect(() => {
+    console.log(barber);
+  }, [barber])
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -83,7 +96,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                  Admin
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -99,7 +112,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={barber.profilePhoto}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -110,10 +123,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ed Roh
-                </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  {barber.barber_Name}
                 </Typography>
               </Box>
             </Box>
@@ -196,13 +206,6 @@ const Sidebar = () => {
               title="Calendar"
               to="/calendar"
               icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

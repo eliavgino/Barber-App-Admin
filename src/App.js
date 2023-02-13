@@ -1,29 +1,54 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
+import { ColorModeContext, useMode } from "./theme";
 import Invoices from "./scenes/invoices";
 import Contacts from "./scenes/users";
 import Bar from "./scenes/bar";
 import Form from "./scenes/AddProduct";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
-import FAQ from "./scenes/faq";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import AddExpenses from "./scenes/AddExpenses/index";
 import AddSalary from "./scenes/AddSalary";
 import AddBarberForm from "./scenes/AddBarber";
+import { useContext } from "react";
+import { PagenationContext } from "./context/pagenation";
+import { BarbersContext } from "./context/barbers";
+import LogIn from "./components/logIn";
+import jwt_decode from "jwt-decode";
 
 function App() {
+
+  const {page,setPage}=useContext(PagenationContext);
+
+  const {getbarberById}=useContext(BarbersContext);
+
   const [theme, colorMode] = useMode();
+ 
   const [isSidebar, setIsSidebar] = useState(true);
 
+  useEffect(() => {
+   
+    if(localStorage.getItem('token')){
+    setPage('app');
+    console.log(jwt_decode(localStorage.getItem('token'))._id)
+    getbarberById(jwt_decode(localStorage.getItem('token'))._id)
+    }
+
+  }, [])
+  
+
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <>
+      {page==='log in'?
+      <LogIn/>
+      :
+      <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
@@ -42,13 +67,14 @@ function App() {
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
-              <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
             </Routes>
           </main>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
+}
+      </>  
   );
 }
 

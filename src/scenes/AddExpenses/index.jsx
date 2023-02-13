@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
 const AddExpense = () => {
   const date = new Date();
-  const month = date.getMonth();
+  const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const months = [
     "January",

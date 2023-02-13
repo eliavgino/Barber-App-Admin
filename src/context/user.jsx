@@ -20,27 +20,9 @@ function UserProvider(props) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [userName, setUsername] = useState("");
   const { role, setRole } = useContext(RoleContext);
-  const { setCerruntBarberId } = useContext(BarbersContext);
+  const { getbarberById } = useContext(BarbersContext);
   const { setPage, setDis } = useContext(PagenationContext);
-  const addNewUser = async (userObj) => {
-    try {
-      const response = await axios.post(url, userObj, {});
-      //storge user deatails into token
-      let user = response.data;
-      localStorage.setItem("token", response.headers["x-auth-token"]);
-      const token = localStorage.getItem("token");
-      setUsername(jwt_decode(token).name);
-      setRole(jwt_decode(token).role);
-      setPage("home");
-      setDis("");
-      if (jwt_decode(token).role === "barber")
-        setCerruntBarberId(jwt_decode(token)._id);
-    } catch (error) {
-      console.log(error);
-      alert(error.response.data);
-    }
-  };
-
+ 
   const authUser = async (userObj) => {
     try {
       const response = await axios.post(
@@ -48,16 +30,22 @@ function UserProvider(props) {
         userObj,
         {}
       );
+      if(jwt_decode(response.data).role!=='admin'){
+
+        return alert('You are not an admin');
+
+      }
       localStorage.setItem("token", response.data);
       const token = localStorage.getItem("token");
       setUsername(jwt_decode(token).name);
       setRole(jwt_decode(token).role);
-      setPage("home");
+      setPage("app");
       setDis("");
-      if (jwt_decode(token).role === "barber")
-        setCerruntBarberId(jwt_decode(token)._id);
+    
+      getbarberById({id:jwt_decode(token)._id});
 
       return "success";
+
     } catch (error) {
       console.log(error);
       setErrorMsg(error);
@@ -80,6 +68,8 @@ function UserProvider(props) {
     localStorage.removeItem("token");
     setUsername("");
     setRole("");
+    setPage('log in')
+    window.location.href = "https://cozy-crumble-26254b.netlify.app/";
   };
   //   const resetPassword = async (userObj) => {
   //     try {
@@ -104,7 +94,6 @@ function UserProvider(props) {
     <div>
       <UserContext.Provider
         value={{
-          addNewUser,
           authUser,
           getAllUsers,
           logOut,

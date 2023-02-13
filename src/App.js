@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -13,20 +13,39 @@ import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
 import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import AddExpenses from "./scenes/AddExpenses/index";
 import AddSalary from "./scenes/AddSalary";
 import AddBarberForm from "./scenes/AddBarber";
+import { useContext } from "react";
+import { PagenationContext } from "./context/pagenation";
+import { BarbersContext } from "./context/barbers";
+import LogIn from "./components/logIn";
+import jwt_decode from "jwt-decode";
 
 function App() {
-  const [theme, colorMode] = useMode();
+
+  const {page,setPage}=useContext(PagenationContext);
+
+  const {getbarberById}=useContext(BarbersContext);
+ 
   const [isSidebar, setIsSidebar] = useState(true);
 
+  useEffect(() => {
+   
+    if(localStorage.getItem('token')){
+    setPage('app');
+    getbarberById(jwt_decode(localStorage.getItem('token'))._id)
+    }
+
+  }, [])
+  
+
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+    <>
+      {page==='log in'?
+      <LogIn/>
+      :
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
@@ -49,8 +68,8 @@ function App() {
             </Routes>
           </main>
         </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+}
+      </>  
   );
 }
 

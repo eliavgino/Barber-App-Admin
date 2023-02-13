@@ -49,7 +49,7 @@ const Sidebar = () => {
   const {barber}=useContext(BarbersContext)
 
   useEffect(() => {
-    
+    console.log(barber);
   }, [barber])
 
   const theme = useTheme();

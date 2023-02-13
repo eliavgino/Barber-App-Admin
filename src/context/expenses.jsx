@@ -7,7 +7,7 @@ export const ExpenseContext = createContext();
 function ExpenseProvider(props) {
   const [expenses, setexpenses] = useState([]);
   const { children } = props;
-  const url = "http://localhost:4000/api/v1/expense";
+  const url = "https://final-project-server-dbar.onrender.com/api/v1/expense";
   const [monthlyEXP, setMonthlyEXP] = useState([]);
 
   const getAllExpenses = async () => {

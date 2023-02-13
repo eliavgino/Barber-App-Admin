@@ -5,6 +5,9 @@ import jwt_decode from "jwt-decode";
 export const IncomingContext = createContext();
 
 function IncomingProvider(props) {
+
+  const url="https://final-project-server-dbar.onrender.com"
+
   const { children } = props;
   const [incomingByMoth, setincomingByMoth] = useState([]);
   const [haircutsByMonthAndBarber, sethaircutsByMonthAndBarber] = useState([]);
@@ -17,7 +20,7 @@ function IncomingProvider(props) {
   async function getAllincomingHaircutsByMoth() {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/v1/haircut/getHairCutsDistintsAndAmouthSum"
+        url+"/api/v1/haircut/getHairCutsDistintsAndAmouthSum"
       );
       setincomingByMoth(response.data);
     } catch (error) {
@@ -28,7 +31,7 @@ function IncomingProvider(props) {
   async function getAllHairCutsByMoNTHAndCount() {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/v1/haircut/getHairCutsDistints"
+        url+"/api/v1/haircut/getHairCutsDistints"
       );
       console.log("j j j j j j j j j j j");
       console.log(response.date);
@@ -45,7 +48,7 @@ function IncomingProvider(props) {
   async function getHairCutsDistintsByMonthAndYearAndBarber() {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/v1/haircut/getHairCutsDistintsByMonthAndYearAndBarber"
+        url+"/api/v1/haircut/getHairCutsDistintsByMonthAndYearAndBarber"
       );
       sethaircutsByMonthAndBarber(response.data);
     } catch (error) {

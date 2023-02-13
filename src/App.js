@@ -36,6 +36,7 @@ function App() {
    
     if(localStorage.getItem('token')){
     setPage('app');
+    console.log(jwt_decode(localStorage.getItem('token'))._id)
     getbarberById(jwt_decode(localStorage.getItem('token'))._id)
     }
 

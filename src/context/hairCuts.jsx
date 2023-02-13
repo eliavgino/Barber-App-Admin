@@ -6,7 +6,10 @@ import { RoleContext } from "./role";
 export const HairCutsContext = createContext();
 
 function HairCutsProvider(props) {
+
   const { role } = useContext(RoleContext);
+
+  const url="https://final-project-server-dbar.onrender.com"
 
   const { children } = props;
   let decoded;
@@ -50,7 +53,7 @@ function HairCutsProvider(props) {
   async function getHairCutsByBarberId(id) {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/hairCut/getHairCutByBarberId",
+        url+"/api/v1/hairCut/getHairCutByBarberId",
         { id }
       );
       setBarberHairCuts(response.data);
@@ -65,7 +68,7 @@ function HairCutsProvider(props) {
   async function removeByHairrcutId(id) {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/haircut/deleteHairCut",
+        url+"/api/v1/haircut/deleteHairCut",
         { _id: id }
       );
       getUpcomingHairCuts();
@@ -80,7 +83,7 @@ function HairCutsProvider(props) {
   async function getHairCutsByUserId(id) {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/hairCut/getHairCutByUser",
+        url+"/api/v1/hairCut/getHairCutByUser",
         { id }
       );
 
@@ -93,7 +96,7 @@ function HairCutsProvider(props) {
 
   async function getAllHaircutsPrice() {
     try {
-      const response = await axios.get("http://localhost:4000/api/v1/product");
+      const response = await axios.get(url+"/api/v1/product");
       let haircuts1 = response.data.filter(
         (product) => product.product_type === "haircuts"
       );
@@ -107,7 +110,7 @@ function HairCutsProvider(props) {
   }
   async function getAllBarbers() {
     try {
-      const response = await axios.get("http://localhost:4000/api/v1/barber");
+      const response = await axios.get(url+"/api/v1/barber");
       setBarbers(response.data);
       console.log(barbers);
     } catch (error) {
@@ -117,7 +120,7 @@ function HairCutsProvider(props) {
   }
   async function getUpcomingHairCuts() {
     try {
-      const response = await axios.get("http://localhost:4000/api/v1/haircut");
+      const response = await axios.get(url+"/api/v1/haircut");
       console.log(response.data);
 
       setallHairCuts(response.data);

@@ -261,7 +261,7 @@ const Dashboard = () => {
         >
           <StatBox
             title={`${currentInc.totalAmount}$`}
-            subtitle="Inccoming"
+            subtitle="Incomes"
             progress={`0.${
               (currentInc.totalPrice - currentInc.totalPrice) / 100
             }`}

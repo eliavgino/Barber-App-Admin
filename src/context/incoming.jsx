@@ -22,6 +22,7 @@ function IncomingProvider(props) {
       const response = await axios.get(
         url+"/api/v1/haircut/getHairCutsDistintsAndAmouthSum"
       );
+      console.log(response.data)
       setIncomingByMoth(response.data);
     } catch (error) {
       console.error(error);

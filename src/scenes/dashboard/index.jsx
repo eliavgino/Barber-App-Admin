@@ -149,7 +149,6 @@ const Dashboard = () => {
     findlastMonthObject(monthlyEXP);
     findlastMonthInc(incomingByMoth);
     findCurrentMonthInc(incomingByMoth);
-    console.log('i was activated ////////////////////////////')
     findCurrentMonthObject(monthlyEXP);
   }, [getAllExpenses]);
 
@@ -160,8 +159,6 @@ const Dashboard = () => {
   }, []);
   return (
     <Box m="20px">
-     
-    {console.log(currentInc)}
 
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">

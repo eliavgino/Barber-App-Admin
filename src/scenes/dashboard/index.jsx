@@ -38,7 +38,7 @@ const Dashboard = () => {
   const month = new Date().getMonth() + 1;
   const [currentobj, setCurrentobj] = useState(5);
   const [currentobj2, setCurrentobj2] = useState({ totalPrice: 0 });
-  const [currentInc, setCurrentInc] = useState({});
+  const [currentInc, setCurrentInc] = useState({totalAmount:0,month:0,year:0});
   const [currentInc2, setCurrentInc2] = useState({ totalAmount: 0 });
 
   function findlastMonthObject(arr) {

@@ -156,6 +156,7 @@ const Dashboard = () => {
     getUpcomingHairCuts();
     getAllUsers();
     getAllHairCutsByMoNTHAndCount();
+    console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;')
   }, []);
   return (
     <Box m="20px">

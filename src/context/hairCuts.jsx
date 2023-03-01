@@ -125,6 +125,8 @@ function HairCutsProvider(props) {
       console.log(response.data);
 
       setallHairCuts(response.data);
+      setActiveHaircuts((response.data.filter(hairCut => hairCut.active === true)));
+      
     } catch (error) {
       console.error(error);
     }
@@ -141,7 +143,7 @@ function HairCutsProvider(props) {
       let eventsCounter=0;
       
 
-      const response = await axios.get("http://localhost:4000/api/v1/event");
+      const response = await axios.get(url+"/event");
   
         for(let i = 0; i <response.data.length; i++){
 

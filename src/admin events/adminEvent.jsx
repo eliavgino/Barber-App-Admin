@@ -13,13 +13,13 @@ function AdminEvent() {
 
   const [eventHours,setEventHours]=useState('');
 
-  const [generatedAppointments,setGeneratedAppointments]=useState([])
+  const [generatedAppointments,setGeneratedAppointments]=useState([]);
 
-  const [futureDate,setFutureDate]=useState()
+  const [futureDate,setFutureDate]=useState();
 
   const [page,setPage]=useState('date');
 
-  const [description,setDescription]=useState('')
+  const [description,setDescription]=useState('');
 
   
   const handleDateSUbmit=(e)=>{

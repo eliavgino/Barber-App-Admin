@@ -33,13 +33,12 @@ function IncomingProvider(props) {
       const response = await axios.get(
         url+"/api/v1/haircut/getHairCutsDistints"
       );
-     
-      console.log(response.date);
+      console.log(response.data)
       setcount(response.data.filter((val) => val._id.month == month)[0]['count']);
-      console.log("bmh ds ds ds ds ")
       console.log(response.data.filter((val) => val._id.month == month-1)[0]['count'])
       setcount2(response.data.filter((val) => val._id.month == month - 1)[0]['count']);
       setHaircutsBydateAndHairCutsCount(response.data);
+
     } catch (error) {
       console.error(error);
       return error;

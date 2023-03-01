@@ -38,7 +38,7 @@ const Dashboard = () => {
   const month = new Date().getMonth() + 1;
   const [currentobj, setCurrentobj] = useState(5);
   const [currentobj2, setCurrentobj2] = useState({ totalPrice: 0 });
-  const [currentInc, setCurrentInc] = useState(5);
+  const [currentInc, setCurrentInc] = useState({});
   const [currentInc2, setCurrentInc2] = useState({ totalAmount: 0 });
 
   function findlastMonthObject(arr) {
@@ -127,6 +127,8 @@ const Dashboard = () => {
     const currentYear = today.getFullYear();
 
     for (let i = 0; i < arr.length; i++) {
+      console.log(  arr[i]._id.month === currentMonth - 1 &&
+        arr[i]._id.year === currentYear)
       if (
         arr[i]._id.month === currentMonth - 1 &&
         arr[i]._id.year === currentYear
@@ -159,20 +161,7 @@ const Dashboard = () => {
   return (
     <Box m="20px">
      
-   {   console.log("this is the current obj down")}
-      {console.log(currentobj)}
-      {console.log(currentobj2)}
-     
-      {console.log((currentobj2.totalPrice))}
-      {console.log((currentobj - currentobj2.totalPrice))}
-      {console.log(count)}
-      {console.log("dshb dsjb dsj dsbjds dsbds ")}
-      console.log({(count- count2) / 100})
-      {console.log(count2)}
-      {console.log(allHairCuts)}
-      
-
-      {console.log((count["count"] - count2["count"]) / 100)}
+    {console.log(currentInc)}
 
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">

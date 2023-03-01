@@ -125,10 +125,9 @@ const Dashboard = () => {
     const today = new Date();
     const currentMonth = today.getMonth() + 1;
     const currentYear = today.getFullYear();
+    console.log(arr)
 
     for (let i = 0; i < arr.length; i++) {
-      console.log(  arr[i]._id.month === currentMonth - 1 &&
-        arr[i]._id.year === currentYear)
       if (
         arr[i]._id.month === currentMonth - 1 &&
         arr[i]._id.year === currentYear
@@ -149,8 +148,8 @@ const Dashboard = () => {
   useEffect(() => {
     findlastMonthObject(monthlyEXP);
     findlastMonthInc(incomingByMoth);
-    console.log('i was activated ////////////////////////////')
     findCurrentMonthInc(incomingByMoth);
+    console.log('i was activated ////////////////////////////')
     findCurrentMonthObject(monthlyEXP);
   }, [getAllExpenses]);
 

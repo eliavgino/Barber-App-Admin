@@ -149,6 +149,7 @@ const Dashboard = () => {
   useEffect(() => {
     findlastMonthObject(monthlyEXP);
     findlastMonthInc(incomingByMoth);
+    console.log('i was activated ////////////////////////////')
     findCurrentMonthInc(incomingByMoth);
     findCurrentMonthObject(monthlyEXP);
   }, [getAllExpenses]);

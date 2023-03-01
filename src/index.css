@@ -33,3 +33,58 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.adminEventContainer{
+
+  width: 100vw;
+  height: 100vh;  
+  background-color: #00000075;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+
+}
+.adminEventCardContainer{
+
+  width: 50vw;
+  height: 60vh;
+  background-color: #dad5d5;
+  box-shadow: 0.4vw 0.4vw 0.3vw 0.1vw rgba(0, 0, 0, 0.384);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-direction: row;
+
+}
+.adminEventHoursContainer{
+
+  border-left: 0.1vw solid black;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.5vw;
+  overflow-y: scroll;
+  background-color: #ede6e6;
+  row-gap: 0;
+
+}
+.adminEventHours{
+
+  border: 0.1vw solid black;
+
+}
+.green{
+
+  background-color: green;
+
+}
+.green:hover{
+
+  background-color: green;
+
+}
+.adminEventInputContainer{
+
+  margin: 2vw;
+
+}

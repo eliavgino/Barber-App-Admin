@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/system';
 import { useContext } from 'react';
-import { HairCutsContext } from '../../context/hairCuts';
+import { HairCutsContext } from '../context/hairCuts'
 import EventDescription from './eventDescription';
 import axios from 'axios';
 

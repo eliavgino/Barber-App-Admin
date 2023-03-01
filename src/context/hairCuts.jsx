@@ -143,7 +143,7 @@ function HairCutsProvider(props) {
       let eventsCounter=0;
       
 
-      const response = await axios.get(url+"/event");
+      const response = await axios.get(url+"/api/v1//event");
   
         for(let i = 0; i <response.data.length; i++){
 

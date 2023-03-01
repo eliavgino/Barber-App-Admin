@@ -35,6 +35,7 @@ function IncomingProvider(props) {
       );
       console.log(response.data)
       setcount(response.data.filter((val) => val._id.month == month)[0]['count']);
+      console.log(response.data.filter((val) => val._id.month == month)[0]['count'])
       console.log(response.data.filter((val) => val._id.month == month-1)[0]['count'])
       setcount2(response.data.filter((val) => val._id.month == month - 1)[0]['count']);
       setHaircutsBydateAndHairCutsCount(response.data);

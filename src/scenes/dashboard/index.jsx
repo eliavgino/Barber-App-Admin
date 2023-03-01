@@ -150,7 +150,7 @@ console.log(incomingByMoth)
     findlastMonthInc(incomingByMoth);
     findCurrentMonthInc(incomingByMoth);
     findCurrentMonthObject(monthlyEXP);
-  }, [getAllExpenses]);
+  }, [getAllExpenses,incomingByMoth]);
 
   useEffect(() => {
     getUpcomingHairCuts();
